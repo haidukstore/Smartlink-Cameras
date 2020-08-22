@@ -30,13 +30,36 @@ final class LoginViewController: UIViewController, ViewModelAttachingProtocol {
     // MARK: - UI variables
     fileprivate var areConstraintsSet: Bool = false
     
-    fileprivate lazy var loginButton: UIButton = {
-        let button = UIButton(type: .custom)
-        button.setTitle(NSLocalizedString("Login", comment: "Login button text"), for: .normal)
-        button.setTitleColor(.gray, for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
+    fileprivate let loginButton = UIButton(type: .custom).config {
+        
+        $0.setTitle(L("Login", comment: "Login button text"), for: .normal)
+        $0.setTitleColor(.gray, for: .normal)
+        $0.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    fileprivate let backgroundImageView = UIImageView(image: LoginImage.backgroundImage.image).config {
+        $0.contentMode = .scaleToFill
+    }
+    
+    fileprivate let loginImageView = UIImageView(image: LoginImage.logo.image).config {
+        $0.contentMode = .scaleAspectFit
+    }
+    
+    fileprivate let usernameTextField = UITextField().config {
+        $0.autocorrectionType = .no
+        $0.placeholder = L("Username")
+        $0.borderStyle = .line
+        $0.textColor = .darkGray
+        $0.font = .systemFont(ofSize: 17)
+    }
+    
+    fileprivate let passwordTextField = UITextField().config {
+        $0.autocorrectionType = .no
+        $0.placeholder = L("Password")
+        $0.borderStyle = .line
+        $0.textColor = .darkGray
+        $0.font = .systemFont(ofSize: 17)
+    }
     
     
     // MARK: - Init
@@ -48,15 +71,6 @@ final class LoginViewController: UIViewController, ViewModelAttachingProtocol {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        if !areConstraintsSet {
-            areConstraintsSet = true
-            configureConstraints()
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,16 +89,35 @@ final class LoginViewController: UIViewController, ViewModelAttachingProtocol {
 extension LoginViewController {
     
     fileprivate func configureAppearance() {
-        view.backgroundColor = .orange
+        view.backgroundColor = .white
         
-        view.addSubview(loginButton)
-    }
-    
-    fileprivate func configureConstraints() {
-        NSLayoutConstraint.activate([
-            loginButton.centerXAnchor.constraint(equalTo: view.layoutMarginsGuide.centerXAnchor),
-            loginButton.centerYAnchor.constraint(equalTo: view.layoutMarginsGuide.centerYAnchor)
+        view.addSubview(backgroundImageView, constraints: [
+            equal(\.heightAnchor, multiplier: 0.5), equal(\.leadingAnchor, offset: 1),
+            equal(\.topAnchor), equal(\.trailingAnchor, offset: -1)
         ])
+        
+        backgroundImageView.addSubview(loginImageView, constraints: [
+            equal(\.centerXAnchor), equal(\.centerYAnchor, offset: 20),
+            equal(\.widthAnchor, multiplier: 0.75)
+        ])
+
+        view.addSubview(usernameTextField, constraints: [
+            equal(\.centerXAnchor), equal(\.widthAnchor, multiplier: 0.9)
+        ])
+        usernameTextField.topAnchor.constraint(equalTo: backgroundImageView.bottomAnchor,
+                                               constant: 30).isActive = true
+        
+        view.addSubview(passwordTextField, constraints: [
+            equal(\.centerXAnchor), equal(\.widthAnchor, multiplier: 0.9)
+        ])
+        passwordTextField.topAnchor.constraint(equalTo: usernameTextField.bottomAnchor,
+                                               constant: 16).isActive = true
+        
+        view.addSubview(loginButton, constraints: [
+            equal(\.widthAnchor, multiplier: 0.9), equal(\.centerXAnchor)
+        ])
+        loginButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor,
+                                                      constant: 40).isActive = true
+        
     }
-    
 }

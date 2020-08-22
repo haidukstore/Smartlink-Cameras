@@ -15,7 +15,7 @@ enum UserDefaultKeys: String {
 extension UserDefaults {
     
     func isLoggedIn() -> Bool {
-        return bool(forKey: UserDefaultKeys.isLoggedIn.rawValue)
+        bool(forKey: UserDefaultKeys.isLoggedIn.rawValue)
     }
     
     func setLoggedIn(value: Bool) -> Void {

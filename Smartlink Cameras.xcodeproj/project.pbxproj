@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D78D182224F139DB0018E0AB /* UIView+Constraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D182124F139DB0018E0AB /* UIView+Constraint.swift */; };
+		D78D182424F139EC0018E0AB /* SelfConfifurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D182324F139EC0018E0AB /* SelfConfifurable.swift */; };
+		D78D182624F141AA0018E0AB /* LoginImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D182524F141AA0018E0AB /* LoginImage.swift */; };
+		D78D182824F164720018E0AB /* String+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D182724F164720018E0AB /* String+Localization.swift */; };
 		FB0E4C2223C8CA8D003E70B0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0E4C2123C8CA8D003E70B0 /* AppDelegate.swift */; };
 		FB0E4C2423C8CA8D003E70B0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB0E4C2323C8CA8D003E70B0 /* SceneDelegate.swift */; };
 		FB0E4C2723C8CA8D003E70B0 /* Smartlink_Cameras.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FB0E4C2523C8CA8D003E70B0 /* Smartlink_Cameras.xcdatamodeld */; };
@@ -55,6 +59,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D78D182124F139DB0018E0AB /* UIView+Constraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Constraint.swift"; sourceTree = "<group>"; };
+		D78D182324F139EC0018E0AB /* SelfConfifurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfConfifurable.swift; sourceTree = "<group>"; };
+		D78D182524F141AA0018E0AB /* LoginImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginImage.swift; sourceTree = "<group>"; };
+		D78D182724F164720018E0AB /* String+Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localization.swift"; sourceTree = "<group>"; };
 		FB0E4C1E23C8CA8D003E70B0 /* Smartlink Cameras.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Smartlink Cameras.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB0E4C2123C8CA8D003E70B0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FB0E4C2323C8CA8D003E70B0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -275,6 +283,9 @@
 				FBB4296023C8D684002EF467 /* RxSwift+Extensions.swift */,
 				FBB4295F23C8D684002EF467 /* UIWindow+Extensions.swift */,
 				FBB4296123C8D684002EF467 /* UserDefaults+Extensions.swift */,
+				D78D182124F139DB0018E0AB /* UIView+Constraint.swift */,
+				D78D182324F139EC0018E0AB /* SelfConfifurable.swift */,
+				D78D182724F164720018E0AB /* String+Localization.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -285,6 +296,7 @@
 				FBB4296623C8D833002EF467 /* LoginCoordinator.swift */,
 				FBB4296823C8D89C002EF467 /* LoginViewController.swift */,
 				FBB4297123C8DEFA002EF467 /* LoginViewModel.swift */,
+				D78D182524F141AA0018E0AB /* LoginImage.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -460,12 +472,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				FBB4296423C8D684002EF467 /* UserDefaults+Extensions.swift in Sources */,
+				D78D182824F164720018E0AB /* String+Localization.swift in Sources */,
 				FBB4295123C8D229002EF467 /* BaseCoordinator.swift in Sources */,
 				FBB4296723C8D833002EF467 /* LoginCoordinator.swift in Sources */,
 				FBB4296923C8D89C002EF467 /* LoginViewController.swift in Sources */,
 				FBB4296323C8D684002EF467 /* RxSwift+Extensions.swift in Sources */,
 				FB0E4C2223C8CA8D003E70B0 /* AppDelegate.swift in Sources */,
+				D78D182624F141AA0018E0AB /* LoginImage.swift in Sources */,
 				FBB4296223C8D684002EF467 /* UIWindow+Extensions.swift in Sources */,
+				D78D182424F139EC0018E0AB /* SelfConfifurable.swift in Sources */,
 				FBB4295923C8D455002EF467 /* UserService.swift in Sources */,
 				FBB4297223C8DEFA002EF467 /* LoginViewModel.swift in Sources */,
 				FB0E4C2723C8CA8D003E70B0 /* Smartlink_Cameras.xcdatamodeld in Sources */,
@@ -476,6 +491,7 @@
 				FB0E4C2423C8CA8D003E70B0 /* SceneDelegate.swift in Sources */,
 				FBB4295623C8D2FE002EF467 /* AppDependency.swift in Sources */,
 				FBB4295423C8D280002EF467 /* AppCoordinator.swift in Sources */,
+				D78D182224F139DB0018E0AB /* UIView+Constraint.swift in Sources */,
 				FBB4296D23C8D949002EF467 /* MainTabBarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
