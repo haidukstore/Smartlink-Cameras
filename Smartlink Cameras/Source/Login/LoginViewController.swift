@@ -28,13 +28,13 @@ final class LoginViewController: UIViewController, ViewModelAttachingProtocol {
     
     
     // MARK: - UI variables
-    fileprivate var areConstraintsSet: Bool = false
     
     fileprivate let loginButton = UIButton(type: .custom).config {
         
-        $0.setTitle(L("Login", comment: "Login button text"), for: .normal)
-        $0.setTitleColor(.gray, for: .normal)
+        $0.setTitle(L("Sign In"), for: .normal)
+        $0.setTitleColor(.white, for: .normal)
         $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.backgroundColor = .signInButtonBackground
     }
     
     fileprivate let backgroundImageView = UIImageView(image: LoginImage.backgroundImage.image).config {
@@ -45,20 +45,37 @@ final class LoginViewController: UIViewController, ViewModelAttachingProtocol {
         $0.contentMode = .scaleAspectFit
     }
     
-    fileprivate let usernameTextField = UITextField().config {
-        $0.autocorrectionType = .no
+    fileprivate let usernameTextField = RegistrationTextField().config {
         $0.placeholder = L("Username")
-        $0.borderStyle = .line
-        $0.textColor = .darkGray
-        $0.font = .systemFont(ofSize: 17)
     }
     
-    fileprivate let passwordTextField = UITextField().config {
-        $0.autocorrectionType = .no
+    fileprivate let passwordTextField = RegistrationTextField().config {
         $0.placeholder = L("Password")
-        $0.borderStyle = .line
-        $0.textColor = .darkGray
-        $0.font = .systemFont(ofSize: 17)
+    }
+    
+    fileprivate let labeledCheckBox = LabeledCheckBox().config {
+        $0.label.text = L("Remember Me")
+    }
+    
+    fileprivate let forgotPasswordButton = UIButton(type: .system).config {
+        $0.setTitle(L("Forgot Password?"), for: .normal)
+        $0.setTitleColor(.gray, for: .normal)
+        $0.contentHorizontalAlignment = .center
+        $0.setContentHuggingPriority(.required, for: .vertical)
+    }
+    
+    fileprivate let bottomLabel = UILabel().config {
+        let mutStr = NSMutableAttributedString()
+        let firstStr = NSAttributedString(string: L("Installing a DIY System? "), attributes: [
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16),
+            NSAttributedString.Key.foregroundColor: UIColor.lightGray
+        ])
+        let secStr = NSAttributedString(string: L("Get Started"), attributes: [
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: .bold),
+            NSAttributedString.Key.foregroundColor: UIColor.lightGray
+        ])
+        mutStr.append(firstStr); mutStr.append(secStr)
+        $0.attributedText = mutStr
     }
     
     
@@ -90,34 +107,53 @@ extension LoginViewController {
     
     fileprivate func configureAppearance() {
         view.backgroundColor = .white
-        
+//Background Image
         view.addSubview(backgroundImageView, constraints: [
-            equal(\.heightAnchor, multiplier: 0.5), equal(\.leadingAnchor, offset: 1),
-            equal(\.topAnchor), equal(\.trailingAnchor, offset: -1)
+            equal(\.heightAnchor, multiplier: 0.5), equal(\.leadingAnchor),
+            equal(\.topAnchor), equal(\.trailingAnchor)
         ])
         
         backgroundImageView.addSubview(loginImageView, constraints: [
             equal(\.centerXAnchor), equal(\.centerYAnchor, offset: 20),
-            equal(\.widthAnchor, multiplier: 0.75)
+            equal(\.widthAnchor, multiplier: 0.9)
         ])
-
+//Username TextField
         view.addSubview(usernameTextField, constraints: [
             equal(\.centerXAnchor), equal(\.widthAnchor, multiplier: 0.9)
         ])
         usernameTextField.topAnchor.constraint(equalTo: backgroundImageView.bottomAnchor,
-                                               constant: 30).isActive = true
-        
+                                               constant: 36).isActive = true
+ //Password TextFeild
         view.addSubview(passwordTextField, constraints: [
             equal(\.centerXAnchor), equal(\.widthAnchor, multiplier: 0.9)
         ])
         passwordTextField.topAnchor.constraint(equalTo: usernameTextField.bottomAnchor,
-                                               constant: 16).isActive = true
-        
-        view.addSubview(loginButton, constraints: [
-            equal(\.widthAnchor, multiplier: 0.9), equal(\.centerXAnchor)
+                                               constant: 36).isActive = true
+//Checkox with label
+        view.addSubview(labeledCheckBox, constraints: [
+            equal(\.leadingAnchor, offset: 24), equal(\.heightAnchor, equalToConstant: 30)
         ])
-        loginButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor,
-                                                      constant: 40).isActive = true
-        
+        labeledCheckBox.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor,
+                                             constant: 36).isActive = true
+//Forgot password button
+        view.addSubview(forgotPasswordButton, constraints: [
+            equal(\.trailingAnchor, offset: -30)
+        ])
+        labeledCheckBox.topAnchor.constraint(equalTo: forgotPasswordButton.topAnchor,
+                                             constant: 6).isActive = true
+        forgotPasswordButton.leadingAnchor.constraint(greaterThanOrEqualTo: labeledCheckBox.trailingAnchor,
+                                                      constant: 8).isActive = true
+//Bottom Label
+        view.addSubview(bottomLabel, constraints: [
+            equal(\.safeAreaLayoutGuide.bottomAnchor, offset: -20),
+            equal(\.centerXAnchor)
+        ])
+//Login Button
+        view.addSubview(loginButton, constraints: [
+            equal(\.widthAnchor, multiplier: 0.9), equal(\.centerXAnchor),
+            equal(\.heightAnchor, equalToConstant: 50)
+        ])
+        loginButton.bottomAnchor.constraint(equalTo: bottomLabel.topAnchor,
+                                            constant: -24).isActive = true
     }
 }

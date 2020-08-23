@@ -22,6 +22,12 @@ extension UIView {
        }
 }
 
+func equal<L>(_ to: KeyPath<UIView, L>, equalToConstant: CGFloat) -> Constraint  where L: NSLayoutDimension {
+    return { view, parent in
+        view[keyPath: to].constraint(equalToConstant: equalToConstant)
+    }
+}
+
 func equal<L, Axis>(_ to: KeyPath<UIView, L>) -> Constraint where L: NSLayoutAnchor<Axis> {
     return { view, parent in
         view[keyPath: to].constraint(equalTo: parent[keyPath: to])
@@ -37,12 +43,6 @@ func equal<L, Axis>(_ to: KeyPath<UIView, L>, offset: CGFloat) -> Constraint whe
 func equal<L, Axis>(_ from: KeyPath<UIView, L>, _ to: KeyPath<UIView, L>) -> Constraint where L: NSLayoutAnchor<Axis> {
     return { view, parent in
         view[keyPath: from].constraint(equalTo: parent[keyPath: to])
-    }
-}
-
-func equal<L>(_ keyPath: KeyPath<UIView, L>, offset: CGFloat) -> Constraint  where L: NSLayoutDimension {
-    return { view, parent in
-        view[keyPath: keyPath].constraint(equalToConstant: offset)
     }
 }
 
@@ -76,14 +76,14 @@ func lessThanOrEqualTo<L, Axis>(_ from: KeyPath<UIView, L>, _ to: KeyPath<UIView
     }
 }
 
-func equal<L>(_ from: KeyPath<UIView, L>, _ to: KeyPath<UIView, L>, multiplier: CGFloat) -> Constraint where L: NSLayoutDimension{
-    return { view, parent in
-        view[keyPath: to].constraint(equalTo: parent[keyPath: to], multiplier: multiplier)
-    }
-}
-
 func equal<L>(_ to: KeyPath<UIView, L>, multiplier: CGFloat) -> Constraint where L: NSLayoutDimension {
     return { view, parent in
         view[keyPath: to].constraint(equalTo:  parent[keyPath: to], multiplier: multiplier)
+    }
+}
+
+func equal<L>(_ from: KeyPath<UIView, L>, _ to: KeyPath<UIView, L>, multiplier: CGFloat) -> Constraint where L: NSLayoutDimension{
+    return { view, parent in
+        view[keyPath: to].constraint(equalTo: parent[keyPath: to], multiplier: multiplier)
     }
 }

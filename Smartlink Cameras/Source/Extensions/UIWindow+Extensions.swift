@@ -59,3 +59,14 @@ extension UIViewController {
     }
     
 }
+
+extension UIColor {
+    
+    static var textfieldTintColor: UIColor {
+        UIColor(red: 42/255, green: 60/255, blue: 67/255, alpha: 1)
+    }
+    
+    static var signInButtonBackground: UIColor {
+        UIColor(red: 71/255, green: 106/255, blue: 119/255, alpha: 1)
+    }
+}
