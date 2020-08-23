@@ -13,8 +13,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     // MARK: - Logic variables
     fileprivate lazy var appCoordinator: AppCoordinator = {
-        let coordinator = AppCoordinator(window: window!)
-        return coordinator
+        AppCoordinator(window: window!)
     }()
     
     fileprivate let disposeBag = DisposeBag()

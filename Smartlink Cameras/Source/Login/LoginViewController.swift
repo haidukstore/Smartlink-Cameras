@@ -29,11 +29,11 @@ final class LoginViewController: UIViewController, ViewModelAttachingProtocol {
     
     // MARK: - UI variables
     
-    fileprivate let loginButton = UIButton(type: .custom).config {
+    fileprivate let loginButton = UIButton(type: .system).config {
         
         $0.setTitle(L("Sign In"), for: .normal)
         $0.setTitleColor(.white, for: .normal)
-        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.titleLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
         $0.backgroundColor = .signInButtonBackground
     }
     
@@ -92,19 +92,14 @@ final class LoginViewController: UIViewController, ViewModelAttachingProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
         configureAppearance()
+        configureRx()
     }
-    
-
-    deinit {
-        
-    }
-
 }
 
 extension LoginViewController {
     
+    //MARK: Configure Appearance
     fileprivate func configureAppearance() {
         view.backgroundColor = .white
 //Background Image
@@ -155,5 +150,51 @@ extension LoginViewController {
         ])
         loginButton.bottomAnchor.constraint(equalTo: bottomLabel.topAnchor,
                                             constant: -24).isActive = true
+    }
+    
+    fileprivate func configureRx() {
+//Move up view if need
+        let keyboardObserver = Observable
+            .merge(
+                usernameTextField.onKeyboardChangeFrame,
+                passwordTextField.onKeyboardChangeFrame)
+        
+        keyboardObserver.subscribe(onNext: { [unowned self] newRect in
+            
+            if newRect == .zero {
+                self.view.frame.origin = .zero
+            } else if self.view.frame.origin == .zero && newRect.height != 0{
+                
+                let bottommost = self.passwordTextField.frame.maxY
+                let keyboardTop = self.view.bounds.height - newRect.height
+                switch bottommost - keyboardTop {
+                case -20..<10:
+                    self.view.frame.origin.y -= 30
+                case ...10 :
+                    self.view.frame.origin.y -= keyboardTop - bottommost + 20
+                default:
+                    self.view.frame.origin.y = 0
+                }
+            }
+        }).disposed(by: disposeBag)
+//Hide keyboard on "Return"
+        usernameTextField.rx
+            .controlEvent(.editingDidEndOnExit)
+            .subscribe(onNext: { [weak self] in
+                self?.view.endEditing(true)
+            }).disposed(by: disposeBag)
+        
+        passwordTextField.rx
+            .controlEvent(.editingDidEndOnExit)
+            .subscribe(onNext: { [weak self] in
+                self?.view.endEditing(true)
+            }).disposed(by: disposeBag)
+//Hide keyboard on tap screen
+        let tapGesture = UITapGestureRecognizer()
+        view.addGestureRecognizer(tapGesture)
+        
+        tapGesture.rx.event.bind(onNext: { [weak self] _ in
+            self?.view.endEditing(true)
+        }).disposed(by: disposeBag)
     }
 }

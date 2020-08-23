@@ -40,10 +40,6 @@ enum TabBarItems: Int, CaseIterable {
                 return ImageType.setImage(name: "icon-settings")
         }
     }
-    
-    static func AllCases() -> [TabBarItems] {
-        return TabBarItems.allCases
-    }
 }
 
 final class MainTabBarController: UITabBarController {
@@ -80,10 +76,10 @@ extension MainTabBarController {
             tabBar.shadowImage = UIImage()
         }
         
-        tabBar.tintColor = .lightGray
+        tabBar.tintColor = .lightText
         tabBar.unselectedItemTintColor = .black
         
-        viewControllers = TabBarItems.AllCases().map({ item -> UINavigationController in
+        viewControllers = TabBarItems.allCases.map({ item -> UINavigationController in
             let newNC = UINavigationController()
             newNC.tabBarItem = UITabBarItem(title: nil,
                                             image: item.image,
