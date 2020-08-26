@@ -15,13 +15,20 @@ final class LoginViewModel: ViewModelProtocol {
     
     struct Bindings {
         let loginButtonTap: Observable<Void>
+        let usernameInputing: Observable<String>
     }
     
     let loginResult: Observable<Void>
+    let usernameBaseURL: Observable<UserBaseURL>
     
     init(dependency: Dependency, bindings: Bindings) {
         loginResult = bindings.loginButtonTap
             .do(onNext: { _ in dependency.userService.login()  })
+
+        usernameBaseURL = bindings.usernameInputing
+            .flatMap { baseURL in
+                dependency.userService.checkUserBaseURL(name: baseURL)
+        }
     }
     
     deinit {

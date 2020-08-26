@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D75363D524F688710009BBB8 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75363D424F688710009BBB8 /* API.swift */; };
+		D787D8A424F6A75900A27A0D /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D787D8A324F6A75900A27A0D /* UserAPI.swift */; };
+		D787D8A624F6AAEC00A27A0D /* UserBaseURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = D787D8A524F6AAEC00A27A0D /* UserBaseURL.swift */; };
+		D787D8A824F6AE9B00A27A0D /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D787D8A724F6AE9B00A27A0D /* APIError.swift */; };
 		D78D182224F139DB0018E0AB /* UIView+Constraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D182124F139DB0018E0AB /* UIView+Constraint.swift */; };
 		D78D182424F139EC0018E0AB /* SelfConfifurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D182324F139EC0018E0AB /* SelfConfifurable.swift */; };
 		D78D182624F141AA0018E0AB /* LoginImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D182524F141AA0018E0AB /* LoginImage.swift */; };
@@ -62,6 +66,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D75363D424F688710009BBB8 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		D787D8A324F6A75900A27A0D /* UserAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAPI.swift; sourceTree = "<group>"; };
+		D787D8A524F6AAEC00A27A0D /* UserBaseURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBaseURL.swift; sourceTree = "<group>"; };
+		D787D8A724F6AE9B00A27A0D /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		D78D182124F139DB0018E0AB /* UIView+Constraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Constraint.swift"; sourceTree = "<group>"; };
 		D78D182324F139EC0018E0AB /* SelfConfifurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfConfifurable.swift; sourceTree = "<group>"; };
 		D78D182524F141AA0018E0AB /* LoginImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginImage.swift; sourceTree = "<group>"; };
@@ -135,6 +143,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D75363D324F6882D0009BBB8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D787D8A524F6AAEC00A27A0D /* UserBaseURL.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		D78D182924F2529E0018E0AB /* UIClass */ = {
 			isa = PBXGroup;
 			children = (
@@ -255,6 +271,7 @@
 		FBB4294D23C8D1B6002EF467 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				D75363D324F6882D0009BBB8 /* Model */,
 				FBB4294E23C8D1CA002EF467 /* Logic */,
 			);
 			path = Common;
@@ -289,6 +306,9 @@
 		FBB4295B23C8D541002EF467 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				D75363D424F688710009BBB8 /* API.swift */,
+				D787D8A724F6AE9B00A27A0D /* APIError.swift */,
+				D787D8A324F6A75900A27A0D /* UserAPI.swift */,
 				FBB4295C23C8D554002EF467 /* APIService.swift */,
 			);
 			path = API;
@@ -496,10 +516,12 @@
 				FBB4296923C8D89C002EF467 /* LoginViewController.swift in Sources */,
 				FBB4296323C8D684002EF467 /* RxSwift+Extensions.swift in Sources */,
 				FB0E4C2223C8CA8D003E70B0 /* AppDelegate.swift in Sources */,
+				D787D8A424F6A75900A27A0D /* UserAPI.swift in Sources */,
 				D78D182624F141AA0018E0AB /* LoginImage.swift in Sources */,
 				D78D182D24F268F90018E0AB /* LabeledCheckBox.swift in Sources */,
 				FBB4296223C8D684002EF467 /* UIWindow+Extensions.swift in Sources */,
 				D78D182424F139EC0018E0AB /* SelfConfifurable.swift in Sources */,
+				D787D8A624F6AAEC00A27A0D /* UserBaseURL.swift in Sources */,
 				FBB4295923C8D455002EF467 /* UserService.swift in Sources */,
 				FBB4297223C8DEFA002EF467 /* LoginViewModel.swift in Sources */,
 				FB0E4C2723C8CA8D003E70B0 /* Smartlink_Cameras.xcdatamodeld in Sources */,
@@ -511,7 +533,9 @@
 				FBB4295623C8D2FE002EF467 /* AppDependency.swift in Sources */,
 				D78D182B24F252EA0018E0AB /* RegistrationTextField.swift in Sources */,
 				FBB4295423C8D280002EF467 /* AppCoordinator.swift in Sources */,
+				D787D8A824F6AE9B00A27A0D /* APIError.swift in Sources */,
 				D78D182224F139DB0018E0AB /* UIView+Constraint.swift in Sources */,
+				D75363D524F688710009BBB8 /* API.swift in Sources */,
 				FBB4296D23C8D949002EF467 /* MainTabBarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

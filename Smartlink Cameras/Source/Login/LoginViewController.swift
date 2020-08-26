@@ -13,12 +13,28 @@ final class LoginViewController: UIViewController, ViewModelAttachingProtocol {
 
     // MARK: - Conformance to ViewModelAttachingProtocol
     var bindings: LoginViewModel.Bindings {
-        return LoginViewModel.Bindings(loginButtonTap: loginButton.rx.tap.asObservable())
+        return LoginViewModel
+            .Bindings(loginButtonTap: loginButton.rx.tap.asObservable(),
+                      usernameInputing: usernameTextField.rx
+                        .text
+                        .orEmpty
+                        .debounce(.seconds(1), scheduler: MainScheduler.instance)
+                        .distinctUntilChanged()
+                        .filter { $0 != "" }
+                        )
     }
     
     var viewModel: Attachable<LoginViewModel>!
     
     func configureReactiveBinding(viewModel: LoginViewModel) -> LoginViewModel {
+
+        viewModel.usernameBaseURL
+            .subscribe(onNext: {
+                print($0)
+            }, onError: {
+                print($0)
+            }).disposed(by: disposeBag)
+        
         return viewModel
     }
     
@@ -177,17 +193,17 @@ extension LoginViewController {
                 }
             }
         }).disposed(by: disposeBag)
-//Hide keyboard on "Return"
+//Change textfield on "Return"
         usernameTextField.rx
             .controlEvent(.editingDidEndOnExit)
             .subscribe(onNext: { [weak self] in
-                self?.view.endEditing(true)
+                self?.passwordTextField.becomeFirstResponder()
             }).disposed(by: disposeBag)
         
         passwordTextField.rx
             .controlEvent(.editingDidEndOnExit)
             .subscribe(onNext: { [weak self] in
-                self?.view.endEditing(true)
+               self?.usernameTextField.becomeFirstResponder()
             }).disposed(by: disposeBag)
 //Hide keyboard on tap screen
         let tapGesture = UITapGestureRecognizer()
