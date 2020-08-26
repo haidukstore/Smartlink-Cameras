@@ -10,12 +10,17 @@ import Foundation
 
 protocol APIServiceProtocol {
     // Just an example
-//    func request() -> Decodable
+    func request(with name: String) -> Decodable
 }
 
 final class APIService: APIServiceProtocol {
     
+    
     init() {
+        
+    }
+    
+    func request(with name: String) -> Decodable {
         
     }
     
