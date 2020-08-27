@@ -20,5 +20,14 @@ extension ObservableType {
     func mapToVoid() -> Observable<Void> {
         return map({ _ in })
     }
-    
+
+    func startLoading(on observable: PublishRelay<Bool>) -> Self {
+        observable.accept(true)
+        return self
+    }
+
+    func stopLoading(on observable: PublishRelay<Bool>) -> Self {
+        observable.accept(false)
+        return self
+    }
 }

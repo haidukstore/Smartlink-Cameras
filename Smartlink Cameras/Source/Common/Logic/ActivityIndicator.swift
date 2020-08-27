@@ -54,8 +54,6 @@ final class ActivityIndicator: SharedSequenceConvertibleType {
                 self?.decrement()
             }, onError: { [weak self] _ in
                 self?.decrement()
-            }, onCompleted: { [weak self] in
-                self?.decrement()
             }, onSubscribe: increment)
         
 //        return Observable.using({ () -> ActivityToken<Source.Element> in

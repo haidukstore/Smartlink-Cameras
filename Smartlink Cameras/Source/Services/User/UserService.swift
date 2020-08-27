@@ -28,7 +28,7 @@ protocol UserServiceProtocol {
     // MARK: - Public methods
     func login()
     func logout()
-    func checkUserBaseURL(name: String) -> Observable<UserBaseURL>
+    func checkUserBaseURL(name: String) -> Observable<Result<UserBaseURL, APIError>>
 }
 
 final class UserService: UserServiceProtocol {
@@ -69,9 +69,11 @@ final class UserService: UserServiceProtocol {
         UserDefaults.standard.setLoggedIn(value: false)
     }
 
-    func checkUserBaseURL(name: String) -> Observable<UserBaseURL> {
+    func checkUserBaseURL(name: String) -> Observable<Result<UserBaseURL, APIError>> {
 
-        apiService.request(with: UserAPI.getBaseURL(name))
+        apiService
+            .request(with: UserAPI.getBaseURL(name))
+            .retry(3)
     }
     
     deinit {

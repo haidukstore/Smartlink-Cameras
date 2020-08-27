@@ -11,6 +11,7 @@
 		D787D8A424F6A75900A27A0D /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D787D8A324F6A75900A27A0D /* UserAPI.swift */; };
 		D787D8A624F6AAEC00A27A0D /* UserBaseURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = D787D8A524F6AAEC00A27A0D /* UserBaseURL.swift */; };
 		D787D8A824F6AE9B00A27A0D /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D787D8A724F6AE9B00A27A0D /* APIError.swift */; };
+		D787D8AA24F6F34400A27A0D /* ResponseErrorEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D787D8A924F6F34400A27A0D /* ResponseErrorEntity.swift */; };
 		D78D182224F139DB0018E0AB /* UIView+Constraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D182124F139DB0018E0AB /* UIView+Constraint.swift */; };
 		D78D182424F139EC0018E0AB /* SelfConfifurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D182324F139EC0018E0AB /* SelfConfifurable.swift */; };
 		D78D182624F141AA0018E0AB /* LoginImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78D182524F141AA0018E0AB /* LoginImage.swift */; };
@@ -70,6 +71,7 @@
 		D787D8A324F6A75900A27A0D /* UserAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAPI.swift; sourceTree = "<group>"; };
 		D787D8A524F6AAEC00A27A0D /* UserBaseURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBaseURL.swift; sourceTree = "<group>"; };
 		D787D8A724F6AE9B00A27A0D /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
+		D787D8A924F6F34400A27A0D /* ResponseErrorEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseErrorEntity.swift; sourceTree = "<group>"; };
 		D78D182124F139DB0018E0AB /* UIView+Constraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Constraint.swift"; sourceTree = "<group>"; };
 		D78D182324F139EC0018E0AB /* SelfConfifurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfConfifurable.swift; sourceTree = "<group>"; };
 		D78D182524F141AA0018E0AB /* LoginImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginImage.swift; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				D787D8A524F6AAEC00A27A0D /* UserBaseURL.swift */,
+				D787D8A924F6F34400A27A0D /* ResponseErrorEntity.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -516,6 +519,7 @@
 				FBB4296923C8D89C002EF467 /* LoginViewController.swift in Sources */,
 				FBB4296323C8D684002EF467 /* RxSwift+Extensions.swift in Sources */,
 				FB0E4C2223C8CA8D003E70B0 /* AppDelegate.swift in Sources */,
+				D787D8AA24F6F34400A27A0D /* ResponseErrorEntity.swift in Sources */,
 				D787D8A424F6A75900A27A0D /* UserAPI.swift in Sources */,
 				D78D182624F141AA0018E0AB /* LoginImage.swift in Sources */,
 				D78D182D24F268F90018E0AB /* LabeledCheckBox.swift in Sources */,
@@ -703,7 +707,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Smartlink Cameras/Preview Content\"";
-				DEVELOPMENT_TEAM = 3JLG8N5656;
+				DEVELOPMENT_TEAM = 6L9DV8M6GF;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -715,7 +719,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.securenettech.Smartlink-Cameras";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.securenettech.Smartlink-Camerass";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

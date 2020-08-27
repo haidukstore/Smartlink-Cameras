@@ -11,7 +11,7 @@ import RxSwift
 
 protocol APIServiceProtocol {
 
-    func request<T: Decodable>(with api: API) ->  Observable<T>
+    func request<T: Decodable>(with api: API) ->  Observable<Result<T, APIError>>
 }
 
 final class APIService: APIServiceProtocol {
@@ -23,9 +23,9 @@ final class APIService: APIServiceProtocol {
         session = URLSession.shared
     }
     
-    func request<T: Decodable>(with api: API) -> Observable<T> {
+    func request<T: Decodable>(with api: API) -> Observable<Result<T, APIError>> {
 
-        return Observable<T>.create { [unowned self] observer in
+        return Observable<Result<T, APIError>>.create { [unowned self] observer in
 
             var request = URLRequest(url: URL(string: api.baseURL)!)
             request.httpMethod = api.method.rawValue
@@ -37,18 +37,33 @@ final class APIService: APIServiceProtocol {
             }
             catch {
                 assertionFailure("Request body is invalid: \(Self.self) line: \(#line)")
-                observer.onError(APIError.invalidData)
+                observer.onNext(.failure(APIError.invalidData))
             }
 
             let task = self.session.dataTask(with: request) { (data, response, error) in
 
                 do {
-                    response.get
-                    let model: T = try JSONDecoder().decode(T.self, from: data ?? Data())
-                    observer.onNext(model)
+
+                    if let error = error as NSError? {
+                        observer.onNext(.failure(.domainError(error.localizedDescription)))
+                        return
+                    }
+
+                    guard let statusCode = (response as? HTTPURLResponse)?.statusCode else {
+                        observer.onNext(.failure(APIError.invalidResponse))
+                        return
+                    }
+
+                    if statusCode == 200 {
+                        let model: T = try JSONDecoder().decode(T.self, from: data ?? Data())
+                        observer.onNext(.success(model))
+                    } else {
+                        let errorEntity = try JSONDecoder().decode(ResponseErrorEntity.self, from: data ?? Data())
+                        observer.onNext(.failure(APIError.serverError(errorEntity.error)))
+                    }
                 }
                 catch {
-                    observer.onError(APIError.invalidResponse)
+                    observer.onNext(.failure(APIError.invalidResponse))
                 }
                 observer.onCompleted()
             }

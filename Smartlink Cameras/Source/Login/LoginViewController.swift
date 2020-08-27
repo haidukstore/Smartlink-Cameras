@@ -7,6 +7,7 @@
 //
 
 import RxSwift
+import RxCocoa
 import UIKit
 
 final class LoginViewController: UIViewController, ViewModelAttachingProtocol {
@@ -29,11 +30,28 @@ final class LoginViewController: UIViewController, ViewModelAttachingProtocol {
     func configureReactiveBinding(viewModel: LoginViewModel) -> LoginViewModel {
 
         viewModel.usernameBaseURL
-            .subscribe(onNext: {
-                print($0)
-            }, onError: {
-                print($0)
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] result in
+                switch result {
+                case let .success(baseUrlEntity):
+                    print(baseUrlEntity.baseURL)
+                case let .failure(error):
+                    self?.present(
+                        UIAlertController(title: L("Error"),
+                                          message: error.description,
+                                          preferredStyle: .alert)
+                            .config { alert in
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                                    alert.dismiss(animated: true, completion: nil)
+                                }
+                        },
+                        animated: true)
+                }
             }).disposed(by: disposeBag)
+
+        viewModel.isLoading
+            .bind(to: activityIndicator.rx.isAnimating)
+            .disposed(by: disposeBag)
         
         return viewModel
     }
@@ -44,6 +62,10 @@ final class LoginViewController: UIViewController, ViewModelAttachingProtocol {
     
     
     // MARK: - UI variables
+
+    fileprivate let activityIndicator = UIActivityIndicatorView(style: .medium).config {
+        $0.color = .white
+    }
     
     fileprivate let loginButton = UIButton(type: .system).config {
         
@@ -166,6 +188,13 @@ extension LoginViewController {
         ])
         loginButton.bottomAnchor.constraint(equalTo: bottomLabel.topAnchor,
                                             constant: -24).isActive = true
+
+//Activity Indicator
+        loginButton.addSubview(activityIndicator, constraints: [
+
+            equal(\.leadingAnchor, offset: 16), equal(\.centerYAnchor),
+            equal(\.heightAnchor, multiplier: 0.9)
+        ])
     }
     
     fileprivate func configureRx() {
@@ -175,19 +204,21 @@ extension LoginViewController {
                 usernameTextField.onKeyboardChangeFrame,
                 passwordTextField.onKeyboardChangeFrame)
         
-        keyboardObserver.subscribe(onNext: { [unowned self] newRect in
+        keyboardObserver
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [unowned self] newRect in
             
-            if newRect == .zero {
+            if newRect == .zero && self.view.frame.origin != .zero {
                 self.view.frame.origin = .zero
-            } else if self.view.frame.origin == .zero && newRect.height != 0{
+            } else if self.view.frame.origin == .zero && newRect.origin.y != 0{
                 
                 let bottommost = self.passwordTextField.frame.maxY
                 let keyboardTop = self.view.bounds.height - newRect.height
                 switch bottommost - keyboardTop {
-                case -20..<10:
+                case -10..<20:
                     self.view.frame.origin.y -= 30
-                case ...10 :
-                    self.view.frame.origin.y -= keyboardTop - bottommost + 20
+                case (20)... :
+                    self.view.frame.origin.y -= -(bottommost - keyboardTop + 20)
                 default:
                     self.view.frame.origin.y = 0
                 }

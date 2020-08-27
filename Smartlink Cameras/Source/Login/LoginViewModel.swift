@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+import RxCocoa
 
 final class LoginViewModel: ViewModelProtocol {
     
@@ -19,15 +20,21 @@ final class LoginViewModel: ViewModelProtocol {
     }
     
     let loginResult: Observable<Void>
-    let usernameBaseURL: Observable<UserBaseURL>
+    let usernameBaseURL: Observable<Result<UserBaseURL, APIError>>
+    let isLoading: Observable<Bool>
     
     init(dependency: Dependency, bindings: Bindings) {
         loginResult = bindings.loginButtonTap
             .do(onNext: { _ in dependency.userService.login()  })
 
+        let indicator = ActivityIndicator()
+        isLoading = indicator.asObservable()
+
         usernameBaseURL = bindings.usernameInputing
             .flatMap { baseURL in
                 dependency.userService.checkUserBaseURL(name: baseURL)
+                    .observeOn(MainScheduler.instance)
+                    .trackActivity(indicator)
         }
     }
     
